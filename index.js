@@ -11,6 +11,7 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use('/api/auth', require('./routes/auth'))
 
 //endpoints
 app.get('/', (req, res)=>{
