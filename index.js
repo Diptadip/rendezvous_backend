@@ -12,6 +12,7 @@ app.use(cors());
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use('/api/auth', require('./routes/auth'))
+app.use('/api/post', require('./routes/post'))
 
 //endpoints
 app.get('/', (req, res)=>{
