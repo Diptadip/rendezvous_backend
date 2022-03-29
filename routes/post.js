@@ -38,7 +38,7 @@ router.post('/create', fetchuser, [
     }
   })
 
-  // ROUTE 2: view post. No login required
+  //ROUTE 2: view all posts using: POST "/api/post/view".No login required
   router.get('/view', async (req, res) => {
     // If there are errors, return Bad request and the errors
     try {      
@@ -53,6 +53,24 @@ router.post('/create', fetchuser, [
     }
   })
 
-  //ROUTE 3: delete post. Login required
+  //ROUTE 3: delete a new post using: POST "/api/post/delete". login required
+  router.delete('/delete/:id', fetchuser,async (req, res) => {
+    // If there are errors, return Bad request and the errors
+    try {      
+      let user = req.user; 
+      const username=user.username;
+      // Create post by username and title
+      let post = await Post.findByIdAndDelete(req.params.id);
+      if(!post){
+          return res.status(400).json({error: "Post not found"});
+      }
+  
+      res.json(post)
+  
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send("Internal Server Error");
+    }
+  })
 
   module.exports= router
